@@ -28,14 +28,14 @@ def start_message(message):
     if not user:
         create_user(telegram_id, first_name)
         mode = get_translation_mode(message.from_user.id)
-        mode_flag = "🇷🇺 → 🇬🇧" if mode == 'ru-en' else "🇬🇧 → 🇷🇺"
+        mode_flag = "🇷🇺 → 🇺🇸" if mode == 'ru-en' else "🇺🇸 → 🇷🇺"
         keyboard.add(f'🔤 Режим перевода: {mode_flag}')
         bot.send_message(message.chat.id,
                          f'Привет, {first_name}, я бот для обучения Английскому языку. Вы записаны в базу',
                          reply_markup=keyboard)
     else:
         mode = get_translation_mode(message.from_user.id)
-        mode_flag = "🇷🇺 → 🇬🇧" if mode == 'ru-en' else "🇬🇧 → 🇷🇺"
+        mode_flag = "🇷🇺 → 🇺🇸" if mode == 'ru-en' else "🇺🇸 → 🇷🇺"
         keyboard.add(f'🔤 Режим перевода: {mode_flag}')
         bot.send_message(message.chat.id,
                          f'Давно не виделись, {first_name}!',
@@ -49,7 +49,7 @@ def toggle_translation_mode(message):
     new_mode = 'ru-en' if current_mode == 'en-ru' else 'en-ru'
 
     set_translation_mode(message.from_user.id, new_mode)
-    mode_text = "🇷🇺 → 🇬🇧" if new_mode == 'ru-en' else "🇬🇧 → 🇷🇺"
+    mode_text = "🇷🇺 → 🇺🇸" if new_mode == 'ru-en' else "🇺🇸 → 🇷🇺"
 
     bot.send_message(
         message.chat.id,

@@ -5,7 +5,7 @@ YANDEX_API_KEY = 'ВАШ API KEY'
 YANDEX_DICTIONARY_URL = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup'
 
 #Токен телеграм бота из BotFather
-BOT_TOKEN = '8753471059:AAH3bK1osgVUyiVPa-04K-e-Cvno86oAgdU'
+BOT_TOKEN = 'ВАШ ТОКЕН'
 
 #Данные для входа в базу данных
 DB_USER = "postgres"
