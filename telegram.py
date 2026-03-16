@@ -6,7 +6,7 @@ from telebot.types import ReplyKeyboardMarkup, ReplyKeyboardRemove
 from config import BOT_TOKEN, CONGRATULATIONS_STIKERS
 from database import (
     get_user, create_user, get_translation_mode, set_translation_mode,
-    get_random_word, add_word_to_learn, get_words, get_variants,
+    get_random_word, add_word_to_learn, get_word, get_variants,
     delete_word_from_learn, get_stats, get_user_achievements,
     update_statistics, login, is_first_login_today,
     check_achievements, add_word_to_db_and_user
@@ -105,13 +105,12 @@ def train_words(message):
     login(message.from_user.id)
     handle_achievements(message)
 
-    words = get_words(message.chat.id)
+    current_word = get_word(message.chat.id)
 
-    if not words:
+    if not current_word:
         bot.send_message(message.chat.id, "У тебя пока нет слов для тренировки.")
         return
 
-    current_word = random.choice(words)
     mode = get_translation_mode(message.from_user.id)
 
     if mode == 'ru-en':

@@ -169,17 +169,18 @@ def add_word_to_learn(word, telegram_id):
         print(f'Ошибка добавления нового слова: {e}')
         session.rollback()
 
-def get_words(telegram_id):
+def get_word(telegram_id):
     """Список всех слов пользователя"""
     try:
         user = get_user(telegram_id)
         if user:
-            words = (session.query(Words)
-                .join(UserWords, UserWords.wordId == Words.id)
-                .filter(UserWords.userId == user.id)
-                .all()
-            )
-            return words
+            word = (session.query(Words)
+                    .join(UserWords, UserWords.wordId == Words.id)
+                    .filter(UserWords.userId == user.id)
+                    .order_by(func.random())
+                    .first()
+                    )
+            return word
     except Exception as e:
         print(f"Ошибка получения списка изучаемых слов:  {e}")
 
@@ -189,12 +190,11 @@ def get_variants(telegram_id, word):
         user = get_user(telegram_id)
         if user:
             variants = (session.query(Words)
-                .join(UserWords, UserWords.wordId == Words.id)
-                .order_by(func.random())
-                .filter(UserWords.userId == user.id)
-                .filter(Words.word != word)
-                .limit(3).all()
-            )
+                        .filter(Words.word != word)
+                        .order_by(func.random())
+                        .limit(3)
+                        .all()
+                        )
             return variants
     except Exception as e:
         print(f'Ошибка получения вариантов :{e})')
